@@ -1,8 +1,4 @@
-/*
-  Modbus-Arduino Example - TempSensor (Modbus IP)
-  Copyright by André Sarmento Barbosa
-  http://github.com/andresarmento/modbus-arduino
-*/
+
  
 #include <SPI.h>
 #include <Ethernet.h>
@@ -14,15 +10,12 @@ int tab_index1 [100];
 
 const int sensorPin = A0;
 
-//ModbusIP object
+
 ModbusIP mb;
 
 void setup() {
-    // The media access control (ethernet hardware) address for the shield
     byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };  
-    // The IP address for the shield
     byte ip[] = { 172, 16, 17, 100 };   
-    //Config Modbus IP 
     mb.config(mac, ip);
 
 
@@ -37,27 +30,16 @@ for(int j=0;j<50;j++){
 
   mb.addHreg(tab_index[j],100);
 }
-    //mb.addHreg(1, 100);
-   // mb.addHreg(2, 100);
-   // mb.addHreg(3, 100);
-   // mb.addHreg(4, 100);
-   // mb.addHreg(5, 100);
-   // mb.addHreg(6, 100);
-   // mb.addHreg(7, 100);
-   // mb.addHreg(8, 100);
-   // mb.addHreg(9, 100);
-   // mb.addHreg(10, 100);
+   
     
  
     Serial.begin(9600);
 }
 
 void loop() {
-   //Call once inside loop() - all magic here
    mb.task();
    
    
-       //Setting raw value (0-1024)
        mb.Hreg(1, analogRead(sensorPin));
        mb.Hreg(2, (analogRead(sensorPin)+200));
         mb.Hreg(3, (analogRead(sensorPin)-100));
